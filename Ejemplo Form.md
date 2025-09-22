@@ -16,7 +16,7 @@
         tema.Aplicar(this);                                                               | <Aplica el tema con el metodo 'Aplicar'>
 
         // 🔁 Aplicar estilo a todos los LabelIn del formulario
-        foreach (Control control in this.Controls)                                        | <Aplica Proiedades de fuente a los controles
+        foreach (Control control in this.Controls)                                        | <Aplica Propiedades de fuente a los controles
         {                                                                                 | label dentro del contenedor de un card
             foreach (Control ctrl in this.Controls)                                       | el label debe llamarse 'lblNombreIn
             {                                                                             | debe comenzar con 'lbl' + nombre + 'In'>
@@ -30,8 +30,8 @@
             }
         }
 
-        // Card 1: contiene un ListView
-        CardControl card1 = new CardControl()
+        // Card 1: contiene un ListView                                                    | Se agrega una card para mostrar listados
+        CardControl card1 = new CardControl()                                              | se parametriza tamano y posicion
         {
             Title = "Listado",
             Description = " ",
@@ -40,13 +40,13 @@
             BorderColor = Color.DeepSkyBlue,
             BorderWidth = 1
         };
-
+                                                                                            | El listview va dentro del contenedor de card
         ListView lvUsuarios = this.Controls.Find("lvUsuarios", true).FirstOrDefault() as ListView;
-        if (lvUsuarios != null)
+        if (lvUsuarios != null)                                                             | Se crea en modo diseno y se instancia para asignarlo
         {
             cn.CargarUsuariosEnLV(lvUsuarios);
-            tema.AplicarEstiloEncabezadoListView(lvUsuarios);
-            // 🔁 Eventos para forzar redibujado durante hover
+            tema.AplicarEstiloEncabezadoListView(lvUsuarios);                               | Se le aplica el tema de encabezado
+            // 🔁 Eventos para forzar redibujado durante hover                              | Se invalidan estos eventos para evitar redibujo
             lvUsuarios.MouseMove += (s, ev) => lvUsuarios.Invalidate();
             lvUsuarios.MouseLeave += (s, ev) => lvUsuarios.Invalidate();
             lvUsuarios.GotFocus += (s, ev) => lvUsuarios.Invalidate();
@@ -58,9 +58,9 @@
             lvUsuarios.Update();
         }
 
-        // Card 2: contiene un Panel (los controles se agregan visualmente)
-        CardControl card2 = new CardControl()
-        {
+        // Card 2: contiene un Panel (los controles se agregan visualmente)                  | Se agrega card2 para mantenimientos
+        CardControl card2 = new CardControl()                                                | Se parametriza tamano y posicion
+        {                                                                                    | CardControl contiene la aplicacion del tema de contenedor
             Title = "Mantenimiento",
             Description = " ",
             Location = new Point(680, 50),
@@ -68,28 +68,16 @@
             BorderColor = Color.DeepSkyBlue,
             BorderWidth = 1
         };
-
+                                                                                             | Se crea un panel que servira de contenedor para los mantenimientos 
         Panel pnlFormulario = this.Controls.Find("pnlFormulario", true).FirstOrDefault() as Panel;
         if (pnlFormulario != null)
         {
-            card2.EstablecerContenedor(pnlFormulario);
-            card2.AplicarTema(tema);
-            this.Controls.Add(card2);
-
-            // 🔁 Aplicar estilo visual desde ThemeManager
-            tema.AplicarEstiloLabelsIn(pnlFormulario);
+            card2.EstablecerContenedor(pnlFormulario);                                       | Card2 recibe el panel dentro de su contenedor
+            card2.AplicarTema(tema);                                                         | Card2 aplica el tema
+            this.Controls.Add(card2);                                                        | Se carga el panel dentro del contenedor de Card2
         }
 
-        this.Controls.Add(card1);
-        this.Controls.Add(card2);
-
-        // 🔁 Aplicar estilo visual a Labels "In" después de que todo esté cargado
-        this.Shown += (s, ev) =>
-        {
-            if (card2.ContenedorInterno != null)
-            {
-                tema.AplicarEstiloLabelsIn(card2.ContenedorInterno);
-            }
-        };
+        this.Controls.Add(card1);                                                            | Se carga Card1 en el formulario
+        this.Controls.Add(card2);                                                            | Se cargo Card2 en el formulario
     }
 }
