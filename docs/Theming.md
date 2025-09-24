@@ -209,6 +209,190 @@ Incluye métodos:
 • 	
 • 	
 
+public class ThemeManager
+{
+    public Color FondoFormulario { get; set; }
+    public Color FondoControl { get; set; }
+    public Color FondoControlesIn { get; set; }
+    public Color ForeColor { get; set; }
+
+    public Font FuenteTituloForm { get; set; }
+    public Font FuenteControles { get; set; }
+    public Font FuenteControlesIn { get; set; }
+    public Color FondoButtonIn { get; set; }
+    public Color ForeColorButtonIn { get; set; }
+    public Color FondoComboBoxIn { get; set; }
+    public Color ForeColorComboBoxIn { get; set; }
+    public Color FondoTabControlIn { get; set; }
+    public Color ForeColorTabControlIn { get; set; }
+    public Color ColorFondoControlesLabel { get; set; } = Color.FromArgb(21,42,75);
+    public Color ColorTextoControlesLabel { get; set; } = Color.White;
+
+
+    public MenuThemeConfig EstilosMenu { get; set; } // ✅ Esta es la propiedad que faltaba
+    public Color ListViewInBackColor { get; set; } = Color.FromArgb(240, 247, 255);
+    public Color FondoListViewIn { get; set; } = Color.FromArgb(240, 247, 255);
+    public Color EncabezadoListViewInBackColor { get; set; } = Color.FromArgb(30, 60, 90); // fondo oscuro por defecto
+    public Color EncabezadoListViewInForeColor { get; set; } = Color.White;                // texto blanco por defecto
+    public List<string> ControlesExcluidos { get; set; } = new List<string>();
+
+
+    public void Aplicar(Form form)
+    {
+        Size tamañoOriginal = form.Size;
+        form.BackColor = FondoFormulario;
+        form.ForeColor = ForeColor;
+
+        foreach (Control ctrl in form.Controls)
+            AplicarAControl(ctrl);
+
+        form.Size = tamañoOriginal;
+    }
+
+    public void AplicarAControl(Control ctrl)
+    {
+        if (ControlesExcluidos.Contains(ctrl.Name))
+            return; // ❌ No aplicar tema a este control
+
+        if (ctrl.Name.EndsWith("In"))
+        {
+            ctrl.BackColor = FondoControlesIn;
+            ctrl.ForeColor = ForeColor;
+            ctrl.Font = FuenteControlesIn;
+        }
+        else
+        {
+            ctrl.BackColor = FondoControl;
+            ctrl.ForeColor = ForeColor;
+            ctrl.Font = FuenteControles;
+        }
+
+        if (ctrl is ListView lv && ctrl.Name.EndsWith("In"))
+        {
+            lv.BackColor = FondoListViewIn;
+            lv.ForeColor = ForeColor;
+            AplicarEstiloEncabezadoListView(lv); // ✅ se aplica automáticamente
+            return;
+        }
+
+        if (ctrl is Button && ctrl.Name.EndsWith("In"))
+        {
+            ctrl.BackColor = FondoButtonIn;
+            ctrl.ForeColor = ForeColorButtonIn;
+            return;
+        }
+
+        if (ctrl is ComboBox && ctrl.Name.EndsWith("In"))
+        {
+            ctrl.BackColor = FondoComboBoxIn;
+            ctrl.ForeColor = ForeColorComboBoxIn;
+            return;
+        }
+
+        if (ctrl is TabControl && ctrl.Name.EndsWith("In"))
+        {
+            ctrl.BackColor = FondoTabControlIn;
+            ctrl.ForeColor = ForeColorTabControlIn;
+            return;
+        }
+
+        // Aplicar recursivamente si es contenedor
+        foreach (Control child in ctrl.Controls)
+        {
+            AplicarAControl(child);
+        }
+    }
+    public void AplicarEstiloEncabezadoListView(ListView lv)
+    {
+        if (lv == null) return;
+
+        lv.FullRowSelect = true;
+        lv.View = View.Details;
+        lv.OwnerDraw = true;
+
+        // Activar doble búfer incluso si fue creado en diseñador
+        typeof(Control).GetProperty("DoubleBuffered", BindingFlags.Instance | BindingFlags.NonPublic)
+            ?.SetValue(lv, true, null);
+
+        lv.DrawColumnHeader += (sender, e) =>
+        {
+            using (SolidBrush backBrush = new SolidBrush(EncabezadoListViewInBackColor))
+            using (SolidBrush textBrush = new SolidBrush(EncabezadoListViewInForeColor))
+            using (StringFormat sf = new StringFormat { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Center })
+            {
+                e.Graphics.FillRectangle(backBrush, e.Bounds);
+                e.Graphics.DrawString(e.Header?.Text ?? "", lv.Font, textBrush, e.Bounds, sf);
+                e.DrawDefault = false;
+            }
+        };
+
+        lv.DrawItem += (sender, e) =>
+        {
+            bool isSelected = (e.State & ListViewItemStates.Selected) != 0;
+            Color backColor = isSelected ? SystemColors.Highlight : lv.BackColor;
+            Color textColor = isSelected ? SystemColors.HighlightText : lv.ForeColor;
+
+            using (SolidBrush backBrush = new SolidBrush(backColor))
+            using (SolidBrush textBrush = new SolidBrush(textColor))
+            {
+                e.Graphics.FillRectangle(backBrush, e.Bounds);
+            }
+
+            // No dibujamos texto aquí si hay subitems
+            if (lv.View != View.Details || e.Item.SubItems.Count <= 1)
+            {
+                e.Graphics.DrawString(e.Item.Text, lv.Font, new SolidBrush(textColor), e.Bounds);
+            }
+
+            if ((e.State & ListViewItemStates.Focused) != 0)
+                e.DrawFocusRectangle();
+        };
+
+        lv.DrawSubItem += (sender, e) =>
+        {
+            bool isSelected = e.Item.Selected;
+            Color backColor = isSelected ? SystemColors.Highlight : lv.BackColor;
+            Color textColor = isSelected ? SystemColors.HighlightText : lv.ForeColor;
+
+            using (SolidBrush backBrush = new SolidBrush(backColor))
+            using (SolidBrush textBrush = new SolidBrush(textColor))
+            {
+                e.Graphics.FillRectangle(backBrush, e.Bounds);
+                e.Graphics.DrawString(e.SubItem.Text, lv.Font, textBrush, e.Bounds);
+            }
+
+            if (e.Item.Focused)
+                e.DrawFocusRectangle(e.Bounds);
+        };
+
+        // Eventos para forzar redibujado durante hover y foco
+        lv.MouseMove += (s, ev) => lv.Invalidate();
+        lv.MouseLeave += (s, ev) => lv.Invalidate();
+        lv.GotFocus += (s, ev) => lv.Invalidate();
+        lv.LostFocus += (s, ev) => lv.Invalidate();
+        lv.ItemSelectionChanged += (s, ev) => lv.Invalidate();
+    }
+
+    public void AplicarEstiloLabelsIn(Control raiz)
+    {
+        foreach (Control ctrl in raiz.Controls)
+        {
+            if (ctrl is Label lbl && lbl.Name.EndsWith("In"))
+            {
+                // 🔁 Tomar el fondo del contenedor real
+                lbl.BackColor = lbl.Parent?.BackColor ?? raiz.BackColor;
+                lbl.ForeColor = Color.White;
+                lbl.UseCompatibleTextRendering = true;
+                lbl.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            }
+
+            if (ctrl.HasChildren)
+            {
+                AplicarEstiloLabelsIn(ctrl);
+            }
+        }
+    }
+}
 
 Formulario MDI que:
 • 	Carga el tema desde 
