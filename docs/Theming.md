@@ -111,11 +111,13 @@ Este sistema permite aplicar estilos visuales a formularios y controles de forma
     "ForeColor": "#FFFFFF"
   }
 }
-
-  
-### `CssThemeConfig.cs`
-Clase que representa el modelo del JSON
 ```
+
+
+### `CssThemeConfig.cs`
+Clase que representa el modelo del JSON.
+    
+```csharp
     public class CssThemeConfig
     {
       public string FondoFormulario { get; set; }
@@ -148,10 +150,12 @@ Clase que representa el modelo del JSON
         public float Tamaño { get; set; }
         public string Estilo { get; set; }
       }
-  }
+    }
+```
 
-ThemeLoader.cs
+### `ThemeLoader.cs`
 Carga el JSON y lo convierte en una instancia de ThemeManager.
+```csharp
 public static class ThemeLoader
 {
     public static ThemeManager CargarDesdeJson(string ruta)
@@ -192,8 +196,9 @@ public static class ThemeLoader
         };
     }
 }
+```
 
-ThemeManager.cs
+### `ThemeManager.cs`
 Aplica los estilos a cada control del formulario, incluyendo lógica específica para:
 • 	 con encabezado personalizado
 • 	, , 
