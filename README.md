@@ -1,4 +1,4 @@
-# Formularios
+# 📚 Formularios
 1. Estructura de formulario
 
 
@@ -22,7 +22,7 @@
                    └── btnFinalizarIn (Button)
 
 
-## Codigo
+## 📦Codigo
 1. Ejemplo de codigo:
 
        public partial class frm_EjemploVisual : Form
@@ -81,11 +81,11 @@
             }
         }
 
-## Reglas para nuevos formularios
+## 🧠 Reglas para nuevos formularios
            1. Todos los controles internos deben tener el sufijo  para que reciban estilos diferenciados.
            2. Aplica  a cada  después de agregar sus hijos.
            3. Usa  para distribuir los cards automáticamente.
            4. Evita aplicar fuentes al formulario completo; usa  si necesitas aplicar a un control específico.
 
-## Tabla de Colores    
+## 🧾 Tabla de Colores    
    <img width="380" height="380" alt="Tabla visual de colores" src="https://github.com/user-attachments/assets/dfe8c174-3d64-41d1-9767-1240a7f766af" />
