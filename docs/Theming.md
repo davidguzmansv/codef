@@ -199,9 +199,9 @@ public static class ThemeLoader
 
 ### `ThemeManager.cs`
 #### Aplica los estilos a cada control del formulario, incluyendo lógica específica para:
-    • 	 con encabezado personalizado
-    • 	, , 
-    • 	 con fondo heredado del contenedor
+        • 	 con encabezado personalizado
+        • 	 , , 
+        • 	 con fondo heredado del contenedor
     
     Incluye métodos:
         • 	Aplicar(Form form)
@@ -394,10 +394,12 @@ public class ThemeManager
     }
 }
 ```
-Formulario MDI que:
-• 	Carga el tema desde 
-• 	Aplica estilo visual al área cliente (`Mdi
+### `frm_Seg_Usuarios.cs`
+#### Formulario MDI que:
+    • 	Carga el tema desde 
+    • 	Aplica estilo visual al área cliente (`Mdi
 
+```csharp
  public partial class frm_Seg_Menu : Form, IFormSeg
  {
      public ToolStripMenuItem MnuStripItem { get; private set; }
@@ -406,60 +408,26 @@ Formulario MDI que:
      public int li_accion;
      public string li_nombre_opcion;
      public string li_nombre_frm;
-
      private string aux_li_nombre_frm = "prueba";
-
 
      public void CambiarNombreFormulario(string text)
      {
          aux_li_nombre_frm = text;
      }
 
-
-
-
      ConexionDB cn;
-
-     public void _Metodo1()
-     {
-         this.IsMdiContainer = true;                           // Define como formulario Padre
-         MenuStrip Menu_Mnu_Strip = new MenuStrip();           // Crea un objeto de la clase MenuStrip
-         this.Controls.Add(Menu_Mnu_Strip);                    // Colocar el control en el formulario
-
-         li_id_sistema = 1;
-         li_id_opcion = 1;
-         li_accion = 1;
-         ConexionDB cn;
-         cn = new ConexionDB(var_global.gs_cn_srv, var_global.gs_cn_usr, var_global.gs_cn_psw, var_global.gs_cn_dbs);
-         DataSet dsetpam;
-         dsetpam = cn.CargarMenu(var_global.gs_sistema, 2, var_global.gs_usuario, 1);         //Retorna datos para el menu padre     :NIVEL 1             
-
-         li_nombre_frm = null;
-         foreach (DataRow dr in dsetpam.Tables["Seg_Opciones_Menu"].Rows)
-         {
-             MnuStripItem = new ToolStripMenuItem(dr["NOMBRE_OPCION"].ToString());            //Genera menu con nombre de la opcion
-             SubMenu(MnuStripItem, Convert.ToInt32(dr["ID_OPCION"]));                        //Entra al Submeni con Nombre_Opcion y Id_Opcion
-             Menu_Mnu_Strip.Items.Add(MnuStripItem);                                          //Agrega la linea que se mostrará en el menu
-         }
-         this.MainMenuStrip = Menu_Mnu_Strip;
-         this.MainMenuStrip.Enabled = true;//Muesta la opcion del menu
-     }
 
      public frm_Seg_Menu()
      {
          cn = new ConexionDB(var_global.gs_cn_srv, var_global.gs_cn_usr, var_global.gs_cn_psw, var_global.gs_cn_dbs);
          InitializeComponent(); 
          this.BackColor = Color.FromArgb(240, 247, 255);
-
-
      }
 
      private void salirToolStripMenuItem_Click(object sender, EventArgs e) => System.Environment.Exit(1);
 
-
      private void tileLayout1_Paint(object sender, PaintEventArgs e)
      {
-
      }
 
      private void salir_tmp_Click(object sender, EventArgs e) => System.Environment.Exit(1);
@@ -529,11 +497,7 @@ Formulario MDI que:
          this.Invalidate();
 
          this.MdiChildActivate += frm_Seg_Menu_MdiChildActivate;
-
-
      }
-
-
 
      public void SubMenu(ToolStripMenuItem mnu, int submenu)                                  //Recibe Nombre_Opcion y ID_Opcion
      {
@@ -544,7 +508,6 @@ Formulario MDI que:
 
          if (dsetpam_s1 == null)
          {
-
          }
          else
          {   
@@ -608,11 +571,10 @@ Formulario MDI que:
 
          aux_li_nombre_frm = formPath; // actualizar cache
      }
-
+    // Se desactiva el boton Salir del MDI mientas el formulario hijo esta abierto
      private void frm_Seg_Menu_MdiChildActivate(object sender, EventArgs e)
      {
          btn_Salir.Visible = this.ActiveMdiChild == null;
      }
-
-
  }
+```
