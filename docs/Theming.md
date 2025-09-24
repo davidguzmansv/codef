@@ -202,6 +202,7 @@ public static class ThemeLoader
     • 	 con encabezado personalizado
     • 	, , 
     • 	 con fondo heredado del contenedor
+    
     Incluye métodos:
         • 	Aplicar(Form form)
         • 	AplicarAControl(Control ctrl)
@@ -396,3 +397,222 @@ public class ThemeManager
 Formulario MDI que:
 • 	Carga el tema desde 
 • 	Aplica estilo visual al área cliente (`Mdi
+
+ public partial class frm_Seg_Menu : Form, IFormSeg
+ {
+     public ToolStripMenuItem MnuStripItem { get; private set; }
+     public int li_id_sistema;
+     public int li_id_opcion;
+     public int li_accion;
+     public string li_nombre_opcion;
+     public string li_nombre_frm;
+
+     private string aux_li_nombre_frm = "prueba";
+
+
+     public void CambiarNombreFormulario(string text)
+     {
+         aux_li_nombre_frm = text;
+     }
+
+
+
+
+     ConexionDB cn;
+
+     public void _Metodo1()
+     {
+         this.IsMdiContainer = true;                           // Define como formulario Padre
+         MenuStrip Menu_Mnu_Strip = new MenuStrip();           // Crea un objeto de la clase MenuStrip
+         this.Controls.Add(Menu_Mnu_Strip);                    // Colocar el control en el formulario
+
+         li_id_sistema = 1;
+         li_id_opcion = 1;
+         li_accion = 1;
+         ConexionDB cn;
+         cn = new ConexionDB(var_global.gs_cn_srv, var_global.gs_cn_usr, var_global.gs_cn_psw, var_global.gs_cn_dbs);
+         DataSet dsetpam;
+         dsetpam = cn.CargarMenu(var_global.gs_sistema, 2, var_global.gs_usuario, 1);         //Retorna datos para el menu padre     :NIVEL 1             
+
+         li_nombre_frm = null;
+         foreach (DataRow dr in dsetpam.Tables["Seg_Opciones_Menu"].Rows)
+         {
+             MnuStripItem = new ToolStripMenuItem(dr["NOMBRE_OPCION"].ToString());            //Genera menu con nombre de la opcion
+             SubMenu(MnuStripItem, Convert.ToInt32(dr["ID_OPCION"]));                        //Entra al Submeni con Nombre_Opcion y Id_Opcion
+             Menu_Mnu_Strip.Items.Add(MnuStripItem);                                          //Agrega la linea que se mostrará en el menu
+         }
+         this.MainMenuStrip = Menu_Mnu_Strip;
+         this.MainMenuStrip.Enabled = true;//Muesta la opcion del menu
+     }
+
+     public frm_Seg_Menu()
+     {
+         cn = new ConexionDB(var_global.gs_cn_srv, var_global.gs_cn_usr, var_global.gs_cn_psw, var_global.gs_cn_dbs);
+         InitializeComponent(); 
+         this.BackColor = Color.FromArgb(240, 247, 255);
+
+
+     }
+
+     private void salirToolStripMenuItem_Click(object sender, EventArgs e) => System.Environment.Exit(1);
+
+
+     private void tileLayout1_Paint(object sender, PaintEventArgs e)
+     {
+
+     }
+
+     private void salir_tmp_Click(object sender, EventArgs e) => System.Environment.Exit(1);
+
+     public void frm_Seg_Menu_Load(object sender, EventArgs e)
+     {
+         this.IsMdiContainer = true;
+
+         // ✅ Aplicar color al área cliente real (MdiClient)
+         foreach (Control ctrl in this.Controls)
+         {
+             if (ctrl is MdiClient)
+             {
+                 ctrl.BackColor = Color.FromArgb(240, 247, 255);
+             }
+         }
+
+         // ✅ Cargar tema visual desde JSON
+         string rutaTema = Path.Combine(Application.StartupPath, "Scripts", "tema.json");
+         var tema = ThemeLoader.CargarDesdeJson(rutaTema);
+
+         // ✅ Crear MenuStrip con renderer desde tema
+         MenuStrip Menu_Mnu_Strip = new MenuStrip
+         {
+             Dock = DockStyle.Top,
+             RenderMode = ToolStripRenderMode.Professional,
+             Renderer = new AecMenuRenderer(tema.EstilosMenu),
+             Font = new Font(tema.EstilosMenu.FuenteMenu.Nombre, tema.EstilosMenu.FuenteMenu.Tamaño,
+                             Enum.TryParse(tema.EstilosMenu.FuenteMenu.Estilo, true, out FontStyle estilo) ? estilo : FontStyle.Regular)
+         };
+
+         this.Controls.Add(Menu_Mnu_Strip);
+         this.MainMenuStrip = Menu_Mnu_Strip;
+
+         // ✅ Cargar menú desde base de datos
+         li_id_sistema = 1;
+         li_id_opcion = 1;
+         li_accion = 1;
+
+         ConexionDB cn = new ConexionDB(var_global.gs_cn_srv, var_global.gs_cn_usr, var_global.gs_cn_psw, var_global.gs_cn_dbs);
+         DataSet dsetpam = cn.CargarMenu(var_global.gs_sistema, 2, var_global.gs_usuario, 1);
+
+         foreach (DataRow dr in dsetpam.Tables["Seg_Opciones_Menu"].Rows)
+         {
+             ToolStripMenuItem MnuStripItem = new ToolStripMenuItem(dr["NOMBRE_OPCION"].ToString());
+             SubMenu(MnuStripItem, Convert.ToInt32(dr["ID_OPCION"]));
+             Menu_Mnu_Strip.Items.Add(MnuStripItem);
+         }
+
+         // ✅ Posicionamiento visual
+         int margen = 20;
+         int margen_f = 40;
+
+         btn_Salir.Location = new Point(
+             this.ClientSize.Width - btn_Salir.Width - margen,
+             this.ClientSize.Height - btn_Salir.Height - margen
+         );
+
+         pbx_Fondo.Width = 300;
+         pbx_Fondo.Location = new Point(
+             this.ClientSize.Width - pbx_Fondo.Width,
+             margen_f
+         );
+
+         pbx_Fondo.Height = this.ClientSize.Height - margen_f - btn_Salir.Height - margen;
+         this.BackColor = Color.FromArgb(240, 247, 255);
+         this.Invalidate();
+
+         this.MdiChildActivate += frm_Seg_Menu_MdiChildActivate;
+
+
+     }
+
+
+
+     public void SubMenu(ToolStripMenuItem mnu, int submenu)                                  //Recibe Nombre_Opcion y ID_Opcion
+     {
+         ConexionDB cn;
+         cn = new ConexionDB(var_global.gs_cn_srv, var_global.gs_cn_usr, var_global.gs_cn_psw, var_global.gs_cn_dbs);
+         DataSet dsetpam_s1;
+         dsetpam_s1 = cn.CargarMenu(var_global.gs_sistema, submenu, var_global.gs_usuario, 2);       //Retorna datos para el Submenu : NIVEL 2
+
+         if (dsetpam_s1 == null)
+         {
+
+         }
+         else
+         {   
+             foreach (DataRow dr in dsetpam_s1.Tables["Seg_Opciones_Menu"].Rows)
+             {
+                 ToolStripMenuItem SSMenu = new ToolStripMenuItem(dr["NOMBRE_OPCION"].ToString(), null, new EventHandler(ChildClick));
+
+                 // 🎨 Estilo de los submenús
+                 //SSMenu.BackColor = Color.DarkBlue;
+                 //SSMenu.ForeColor = Color.LightYellow;
+                 //SSMenu.Font = new Font("Segoe UI", 10, FontStyle.Regular);
+
+                 mnu.DropDownItems.Add(SSMenu);
+
+                 SubMenu(SSMenu, Convert.ToInt32(dr["ID_OPCION"]));
+             }
+         }
+     }
+
+     private void ChildClick(object sender, EventArgs e)
+     {
+         var menuItem = sender as ToolStripMenuItem;
+         if (menuItem == null) return;
+
+         // Traer la URL del form desde la BD
+         ConexionDB cn = new ConexionDB(var_global.gs_cn_srv, var_global.gs_cn_usr, var_global.gs_cn_psw, var_global.gs_cn_dbs);
+         DataTable dsetpam_s_url = cn.CargarMenu_dt(menuItem.Text); // O usa el ID, mejor que Text
+         string formPath = dsetpam_s_url.Rows[0][0].ToString();
+
+         if (aux_li_nombre_frm == formPath)
+         {
+             MessageBox.Show("Formulario Abierto");
+             return;
+         }
+
+         // Buscar el tipo del formulario
+         Type type = Type.GetType(formPath);
+
+         if (type == null)
+         {
+             MessageBox.Show($"No se encontró el formulario: {formPath}");
+             return;
+         }
+
+         Form frmShow = (Form)Activator.CreateInstance(type);
+
+         // Cuando el hijo se cierre, limpiar la variable cache
+         frmShow.FormClosed += (s, ev) =>
+         {
+             aux_li_nombre_frm = null;
+         };
+
+         // Cerrar otros hijos si quieres que solo uno esté abierto
+         foreach (Form form in this.MdiChildren)
+         {
+             form.Close();
+         }
+
+         frmShow.MdiParent = this;
+         frmShow.Show();
+
+         aux_li_nombre_frm = formPath; // actualizar cache
+     }
+
+     private void frm_Seg_Menu_MdiChildActivate(object sender, EventArgs e)
+     {
+         btn_Salir.Visible = this.ActiveMdiChild == null;
+     }
+
+
+ }
