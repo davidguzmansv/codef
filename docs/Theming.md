@@ -31,8 +31,7 @@ Este sistema permite aplicar estilos visuales a formularios y controles de forma
 ## 🧩 Componentes Clave
 
 ### `tema.json`
-
-  Archivo de configuración visual con colores, fuentes y estilos para cada tipo de control.
+#### Archivo de configuración visual con colores, fuentes y estilos para cada tipo de control.
 
 ```json
 {
@@ -115,7 +114,7 @@ Este sistema permite aplicar estilos visuales a formularios y controles de forma
 
 
 ### `CssThemeConfig.cs`
-Clase que representa el modelo del JSON.
+#### Clase que representa el modelo del JSON.
     
 ```csharp
     public class CssThemeConfig
@@ -154,7 +153,7 @@ Clase que representa el modelo del JSON.
 ```
 
 ### `ThemeLoader.cs`
-Carga el JSON y lo convierte en una instancia de ThemeManager.
+#### Carga el JSON y lo convierte en una instancia de ThemeManager.
 ```csharp
 public static class ThemeLoader
 {
@@ -199,16 +198,16 @@ public static class ThemeLoader
 ```
 
 ### `ThemeManager.cs`
-Aplica los estilos a cada control del formulario, incluyendo lógica específica para:
-• 	 con encabezado personalizado
-• 	, , 
-• 	 con fondo heredado del contenedor
-Incluye métodos:
-• 	
-• 	
-• 	
-• 	
-
+#### Aplica los estilos a cada control del formulario, incluyendo lógica específica para:
+    • 	 con encabezado personalizado
+    • 	, , 
+    • 	 con fondo heredado del contenedor
+    Incluye métodos:
+        • 	Aplicar(Form form)
+        • 	AplicarAControl(Control ctrl)
+        • 	AplicarEstiloEncabezadoListView(ListView lv)
+        • 	AplicarEstiloLabelsIn(Control raiz)
+ ```csharp
 public class ThemeManager
 {
     public Color FondoFormulario { get; set; }
@@ -393,7 +392,7 @@ public class ThemeManager
         }
     }
 }
-
+```
 Formulario MDI que:
 • 	Carga el tema desde 
 • 	Aplica estilo visual al área cliente (`Mdi
