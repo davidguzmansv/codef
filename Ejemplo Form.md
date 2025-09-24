@@ -1,5 +1,5 @@
-# Estructura de Formulario
-
+# 🏗️ Estructura de Formulario
+```csharp
     public partial class frm_Seg_Usuarios : Form
     {
       ConexionDB cn;                                                                      | <Controlador de conexion a DB>
@@ -81,3 +81,4 @@
         this.Controls.Add(card2);                                                            | Se cargo Card2 en el formulario
     }
 }
+```
