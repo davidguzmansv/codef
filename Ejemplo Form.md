@@ -7,7 +7,7 @@
       {
         InitializeComponent();                                                            | <Inicializa los componentes>
         this.Load += frm_Seg_Usuarios_Load;                                               | <Instancia el formulario y el metodo Load>
-        cn = new ConexionDB(var_global.gs_cn_srv, var_global.gs_cn_usr, var_global.gs_cn_psw, var_global.gs_cn_dbs);
+        cn = new ConexionDB();
       }
       private void frm_Seg_Usuarios_Load(object sender, EventArgs e)                      | <Metodo Load /  aqui carga los elementos>
       {
