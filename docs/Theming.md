@@ -43,27 +43,28 @@ Este sistema permite aplicar estilos visuales a formularios y controles de forma
   "FondoComboBoxIn": "#F0F7FF",
   "ForeColorComboBoxIn": "#000000",
   "FondoTabControlIn": "#E8F0FF",
-  "ForeColorTabControlIn": "#000000",
   "ColorFondoControlesLabel": "#1b2a49",
   "ColorTextoControlesLabel": "#FFFFFF",
-  "ControlesExcluidos": ["btn_Volver"],
+  "ControlesExcluidos": [ "btn_Volver", "lbl_Titulo" ],
+  "ForeColorTabControlIn": "#000000",
+
   "ListViewInBackColor": "#F0F7FF",
   "ForeColor": "#000000",
   "FuenteTituloForm": {
     "Nombre": "Century Gothic",
     "Tamaño": 18,
     "Estilo": "Bold"
-    },
+  },
   "FuenteControles": {
     "Nombre": "Century Gothic",
     "Tamaño": 12,
     "Estilo": "Regular"
-    },
+  },
   "FuenteControlesIn": {
     "Nombre": "Century Gothic",
     "Tamaño": 10,
     "Estilo": "Regular"
-    },
+  },
   "EstilosMenu": {
     "FondoMenu": "#1B2A49",
     "FondoHover": "#3A506B",
@@ -76,36 +77,36 @@ Este sistema permite aplicar estilos visuales a formularios y controles de forma
       "Tamaño": 14,
       "Estilo": "Regular"
     },
-  "FuenteMenuHover": {
+    "FuenteMenuHover": {
       "Nombre": "Segoe UI",
       "Tamaño": 14,
       "Estilo": "Bold"
     }
-},
-"Form": {
+  },
+  "Form": {
     "BackColor": "#FFFFFF",
     "ForeColor": "#000000"
   },
-"Panel": {
+  "Panel": {
     "BackColor": "#F5F5F5"
   },
-"PanelIn": {
+  "PanelIn": {
     "BackColor": "#E8F0FF"
   },
-"ListView": {
+  "ListView": {
     "BackColor": "#FFFFFF",
     "ForeColor": "#000000"
   },
-"ListViewIn": {
+  "ListViewIn": {
     "BackColor": "#F0F7FF",
     "ForeColor": "#000000",
     "HeaderBackColor": "#1E3C5A",
     "HeaderForeColor": "#FFFFFF"
   },
-"Label": {
+  "Label": {
     "ForeColor": "#333333"
   },
-"Button": {
+  "Button": {
     "BackColor": "#007ACC",
     "ForeColor": "#FFFFFF"
   }
