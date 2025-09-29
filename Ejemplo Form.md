@@ -3,6 +3,7 @@
     public partial class frm_Seg_Usuarios : Form
     {
       ConexionDB cn;                                                                      | <Controlador de conexion a DB>
+      private string modoAccion = "";                                                     | <Controla la accion de Nuevo o Editar>
       public frm_Seg_Usuarios()
       {
         InitializeComponent();                                                            | <Inicializa los componentes>
