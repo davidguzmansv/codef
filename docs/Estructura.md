@@ -20,33 +20,113 @@
   - `btn_GuardarIn_Click()` → lógica de inserción/actualización
   - `lvw_[Entidad]_SelectedIndexChanged()` → carga de datos al seleccionar
 
-  ### 🎯 Convenciones de nombres por tipo de control
+  ### 🧩 Guía Estructural Secuencial para Formularios de Mantenimiento
 
-  **TextBox**  
-  `tbx_Nom[NombreFormulario]`  
-  `tbx_Pas[NombreFormulario]`  
-  `tbx_Per[NombreFormulario]`
+  Esta plantilla define el orden lógico y técnico que deben seguir los formularios tipo mantenimiento (frm_[Modulo]_[Entidad]), como usuarios, perfiles, menú, etc.
+
+  #### ▸ Definición de clase
+
+    public partial class frm_[Modulo]_[Entidad] : Form
+    - Declara conexión a BD → ConexionDB cn
+    - Define modo de acción → string modoAccion = "" ("Nuevo" / "Editar")
+
+  #### ▸ Constructor del formulario
+
+    public frm_[Modulo]_[Entidad]()
+    - Ejecuta InitializeComponent()
+    - Asocia evento Load → frm_[Modulo]_[Entidad]_Load
+    - Instancia conexión → cn = new ConexionDB()
+
+  #### ▸ Evento Load
+
+    private void frm_[Modulo]_[Entidad]_Load(object sender, EventArgs e)
+    - Carga el tema desde archivo JSON
+        ThemeManager tema = ThemeLoader.CargarDesdeJson(rutaTema);
+        tema.Aplicar(this);
+
+    - Aplica estilo visual a todos los LabelIn del formulario
+      (color, fuente, renderizado compatible)
+
+  #### ▸ Define los CardControl
+
+    Card 1: Listado
+    - Crea CardControl card1 con título "Listado"
+    - Busca y referencia ListView lvw_[Entidad]
+    - Carga datos desde SP → cn.Cargar[Entidad]EnLV(lvw_[Entidad])
+    - Aplica estilo de encabezado → tema.AplicarEstiloEncabezadoListView(lvw_[Entidad])
+    - Asocia eventos visuales (Invalidate() en hover, focus, selección)
+
+    Card 2: Mantenimiento
+
+    - Crea CardControl card2 con título "Mantenimiento"
+    - Busca y referencia Panel pnl_[Modulo]_[Entidad]
+    - Establece contenedor visual → card2.EstablecerContenedor(pnl...)
+    - Aplica tema visual → card2.AplicarTema(tema)
+
+  #### ▸ Agrega los CardControl al formulario
+
+    this.Controls.Add(card1);
+    this.Controls.Add(card2);
+
+  #### ▸ Inicializa estado visual
+
+    desactivarCampos();
+    - Deshabilita campos de entrada y oculta botón de guardar
+
+  #### ▸ Métodos de control de estado
+
+    activarCampos()
+    desactivarCampos()
+    LimpiarCampos()
+
+    - Activan/desactivan campos según modo (Nuevo / Editar)
+    - Limpian contenido de los controles visuales
+
+  #### ▸ Eventos de acción
+
+    pbx_Nuevo_Click()
+    - Establece modo "Nuevo"
+    - Activa campos y limpia contenido
+    - Muestra botón de guardar
+
+    pbx_Editar_Click()
+    - Verifica selección en ListView
+    - Establece modo "Editar"
+    - Activa campos y muestra botón de guardar
+
+    btn_GuardarIn_Click()
+    - Verifica modo (Nuevo / Editar)
+    - Cifra contraseña si aplica
+    - Ejecuta SP → Agregar[Entidad] o Actualizar[Entidad]
+    - Recarga ListView, resetea estado visual
+
+    btn_Volver_Click()
+    - Cierra el formulario
+
+  #### ▸ Evento de selección en ListView
+
+    lvw_[Entidad]_SelectedIndexChanged()
+    - Verifica selección
+    - Ejecuta SP → CargarDatos[Entidad]
+    - Carga datos en los controles del panel
+
+  #### 🎯 Convenciones de nombres por tipo de control
+
+  TextBox  :    `tbx_Nom[Entidad], tbx_Pas[Entidad], tbx_Per[Entidad]`
   
-  **ComboBox**  
-  `cbx_Est[NombreFormulario]`  
-  `cbx_Tipo[NombreFormulario]`
+  ComboBox :    `cbx_Est[Entidad]`
+
+  Button  : `btn_GuardarIn[Entidad], btn_Volver[Entidad]`
+
+  Label  : `lbl_Nombre[Entidad], lbl_PasswordIn[Entidad]`
+
+  ListView  : `lvw_[Entidad]`
+
+  Panel  : `pnl_[Modulo]_[Entidad]`
+
+  PictureBox  : `pbx_Nuevo[Entidad], pbx_Editar[Entidad]`
   
-  **Button**  
-  `btn_GuardarIn[NombreFormulario]`  
-  `btn_Volver[NombreFormulario]`
-  **Label**  
-  
-  `lbl_Nombre[NombreFormulario]`  
-  `lbl_PasswordIn[NombreFormulario]`
-  **ListView**
-  `lvw_[Entidad]`
-  
-  **Panel**  
-  `pnl_[NombreFormulario]`
-  
-  **PictureBox**  
-  `pbx_Nuevo[NombreFormulario]`  
-  `pbx_Editar[NombreFormulario]`
+  ---
 
   ## 📚 Definiciones
       
