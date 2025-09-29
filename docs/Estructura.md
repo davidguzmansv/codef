@@ -166,19 +166,19 @@
   ### 🎚 Controles - 🖍 `Con Tema`
   #### 🧾 Listado - `ListView`
   **Name**: `lvw_Nombreform`  
-  **Posición**: `1040; 90`  
+  **Posición**: `68; 141`  
   **Size**: `536, 304` 
  
   #### 💾 Guardar   - `Button`
-  **Name**: `btn_Volver`  
-  **Posición**: `990, 510`  
+  **Name**: `btn_GuardarIn`  
+  **Posición**: `724, 413`  
   **Size**: `106, 39`  
-  **BackColor**: `RGB(253, 184, 18)`  
+  **BackColor**: `RGB(0, 146, 208)`  
   **ForeColor**: `White`  
   **FlatStyle**: `Flat`
   
   **FlatAppearance**  
    ***BorderColor**: `RGB(85, 159, 127)`  
    ***BorderSize**: `1`  
-   ***MouseDownBackColor**: `RGB(20, 20, 20)`  
-   ***MouseOverBackColor**: `Red`
+   ***MouseDownBackColor**: `Lime`  
+   ***MouseOverBackColor**: `RGB(0, 146,208)`
