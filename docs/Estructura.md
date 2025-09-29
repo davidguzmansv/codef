@@ -112,19 +112,13 @@
 
   #### 🎯 Convenciones de nombres por tipo de control
 
-  TextBox  :    `tbx_Nom[Entidad], tbx_Pas[Entidad], tbx_Per[Entidad]`
-  
-  ComboBox :    `cbx_Est[Entidad]`
-
-  Button  : `btn_GuardarIn[Entidad], btn_Volver[Entidad]`
-
-  Label  : `lbl_Nombre[Entidad], lbl_PasswordIn[Entidad]`
-
-  ListView  : `lvw_[Entidad]`
-
-  Panel  : `pnl_[Modulo]_[Entidad]`
-
-  PictureBox  : `pbx_Nuevo[Entidad], pbx_Editar[Entidad]`
+  TextBox  :    `tbx_Nom[Entidad], tbx_Pas[Entidad], tbx_Per[Entidad]`  
+  ComboBox :    `cbx_Est[Entidad]`  
+  Button  : `btn_GuardarIn[Entidad], btn_Volver[Entidad]`  
+  Label  : `lbl_Nombre[Entidad], lbl_PasswordIn[Entidad]`  
+  ListView  : `lvw_[Entidad]`  
+  Panel  : `pnl_[Modulo]_[Entidad]`  
+  PictureBox  : `pbx_Nuevo[Entidad], pbx_Editar[Entidad]`  
   
   ---
 
