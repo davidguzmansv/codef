@@ -133,7 +133,11 @@
   ### 📱 Formularios
   **Size - (Max)**  :`1160; 600`   
   **Size - (Min)**  :`1280; 700`  
-  **BackColor**     : `{Controlado por Json}`
+  **BackColor**     : `{Controlado por Json}`  
+  **FormBorderStyle**: `None`  
+  **ControlBox**: `False`  
+  **StartPosition**: `CenterScreen`  
+  
   ### 🎚 Controles - `Exclusiones en Json`
   #### 🔖 Título - `Label`  
   **Name**: `lbl_Titulo`  
