@@ -1,5 +1,29 @@
 # 🧠 Convenciones y Nombres
-Se definen las convenciones a utiliar en el proyecto
+Se definen las convenciones a utilizar en el proyecto
+
+## 🧩 Prefijos por Módulo
+Esta tabla resume los prefijos utilizados para identificar componentes clave en el sistema, organizados por módulo. Incluye los prefijos para tablas, procedimientos almacenados (SP), formularios (Form), funciones (FN) y vistas (VW), facilitando la estandarización y el mantenimiento del código.
+
+| 🗂️ Módulo              | 🔤 Prefijo | 📊 Tabla   | ⚙️ SP         | 🧾 Formulario | 🧠 Función (FN) | 👁️ Vista (VW) |
+|------------------------|-----------|------------|---------------|----------------|------------------|----------------|
+| **Mantenimiento**       | `mto`     | `mto`       | `sp_mto`      | `frm_mto`      | `fn_mto`         | `vw_mto`       |
+| **Catálogos**           | `ctlg`    | `ctlg`      | `N/A`         | N/A            | `N/A`            | `N/A`          |
+| **Inventario**          | `inv`     | `inv`       | `sp_inv`      | `frm_inv`      | `fn_inv`         | `vw_inv`       |
+| **Materia Prima**       | `mtp`     | `mtp`       | `sp_mtp`      | `frm_mtp`      | `fn_mtp`         | `vw_mtp`       |
+| **Químicos**            | `qmc`     | `qmc`       | `sp_qmc`      | `frm_qmc`      | `fn_qmc`         | `vw_qmc`       |
+| **Requerimientos**      | `req`     | `req`       | `sp_req`      | `frm_req`      | `fn_req`         | `vw_req`       |
+| **Seguridad**           | `seg`     | `seg`       | `sp_seg`      | `frm_seg`      | `fn_seg`         | `vw_seg`       |
+| **Producto Terminado**  | `ptr`     | `ptr`       | `sp_ptr`      | `frm_ptr`      | `fn_ptr`         | `vw_ptr`       |
+| **Documentación**       | `doc`     | `doc`       | `sp_doc`      | `frm_doc`      | `fn_doc`         | `vw_doc`       |
+| **Reportes**            | `rpt`     | `rpt`       | `rpt`         | `N/A`          | `N/A`            | `N/A`          |
+| **Declaración**         | `dcl`     | `dcl`       | `sp_dcl`      | `frm_dcl`      | `fn_dcl`         | `vw_dcl`       |
+| **Calidad**             | `cld`     | `cld`       | `sp_cld`      | `frm_cld`      | `fn_cld`         | `vw_cld`       |
+| **Bodegas**             | `bdg`     | `bdg`       | `sp_bdg`      | `N/A`          | `N/A`            | `N/A`          |
+
+## 🔑 Tablas, Vistas, SP y funciones
+- Nombres `todo` en minúsculas  
+- Para SP y FN agregar autor, fecha de creacion, Description (Esto con el fin de documentacion dinámica)
+
 ## 🎚 Controles
 **[ Botones ]**  
 Convención: `btn_NombreBoton`  
