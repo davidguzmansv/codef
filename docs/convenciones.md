@@ -4,7 +4,7 @@ Se definen las convenciones a utilizar en el proyecto
 ## 🧩 Prefijos por Módulo
 Esta tabla resume los prefijos utilizados para identificar componentes clave en el sistema, organizados por módulo. Incluye los prefijos para tablas, procedimientos almacenados (SP), formularios (Form), funciones (FN) y vistas (VW), facilitando la estandarización y el mantenimiento del código.
 
-| 🗂️ Módulo              | 🔤 Prefijo | 📊 Tabla   | ⚙️ SP         | 🧾 Formulario | 🧠 Función (FN) | 👁️ Vista (VW) |
+| 🗂️ Módulo  y otros      | 🔤 Prefijo | 📊 Tabla   | ⚙️ SP         | 🧾 Form | 🧠 Función (FN) | 👁️ Vista (VW) |
 |------------------------|-----------|------------|---------------|----------------|------------------|----------------|
 | **Mantenimiento**       | `mto`     | `mto`       | `sp_mto`      | `frm_mto`      | `fn_mto`         | `vw_mto`       |
 | **Catálogos**           | `ctlg`    | `ctlg`      | `N/A`         | N/A            | `N/A`            | `N/A`          |
@@ -21,8 +21,12 @@ Esta tabla resume los prefijos utilizados para identificar componentes clave en 
 | **Bodegas**             | `bdg`     | `bdg`       | `sp_bdg`      | `N/A`          | `N/A`            | `N/A`          |
 
 ## 🔑 Tablas, Vistas, SP y funciones
-- Nombres `todo` en minúsculas  
+- Nombres `todo` en minúsculas  Ej: `sp_seg_opciones_menu_crud`
 - Para SP y FN agregar autor, fecha de creacion, Description (Esto con el fin de documentacion dinámica)
+    Ej:  
+          <Author: Nombre autor>  
+          <Create date: <27/09/2025>  
+          <Description: <CRUD de Opciones - Menu>  
 
 ## 🎚 Controles
 **[ Botones ]**  
