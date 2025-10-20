@@ -18,7 +18,11 @@ Esta tabla resume los prefijos utilizados para identificar componentes clave en 
 | **Reportes**            | `rpt`     | `rpt`       | `rpt`         | `N/A`          | `N/A`            | `N/A`          |
 | **Declaración**         | `dcl`     | `dcl`       | `sp_dcl`      | `frm_dcl`      | `fn_dcl`         | `vw_dcl`       |
 | **Calidad**             | `cld`     | `cld`       | `sp_cld`      | `frm_cld`      | `fn_cld`         | `vw_cld`       |
-| **Bodegas**             | `bdg`     | `bdg`       | `sp_bdg`      | `N/A`          | `N/A`            | `N/A`          |
+| **Bodegas**             | `bdg`     | `bdg`       | `sp_bdg`      | `N/A`          | `N/A`            | `N/A`          | 
+| **Unidad de Medida**    | `udm`     | `udm`       | `N/A`         | `N/A`          | `N/A`            | `N/A`          |  
+| **Inciso Arancelario**  | `ina`     | `ina`       | `N/A`         | `N/A`          | `N/A`            | `N/A`          |  
+| **Tipo Producto**       | `tpd`     | `tpd`       | `N/A`         | `N/A`          | `N/A`            | `N/A`          |  
+
 
 ## 🔑 Tablas, Vistas, SP y funciones
 - Nombres `todo` en minúsculas  Ej: `sp_seg_opciones_menu_crud`
