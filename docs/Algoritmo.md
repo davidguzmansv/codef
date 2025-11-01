@@ -36,7 +36,7 @@ Algoritmo Cono
 	Definir radio, altura, generatriz, area, volumen Como Real
 	
 	// Se guarda el nombre completo en la variable nombre
-	nombre <- "Morales Barahona, Ana Rebeca"
+	nombre <-
 	
 	// Asignamos los valores dados en el enunciado
 	radio <- 0.75
